@@ -1,6 +1,6 @@
 # ZScript
 
-ZScript is the scripting language for ZQuest Classic. The ZScript compiler is implemented [here](https://github.com/ZQuestClassic/ZQuestClassic/tree/main/src/parser). The parser uses flex/bison and the codegen (to ZASM, the bytecode that runs in the game engine) is C++.
+ZScript is the scripting language for ZQuest Classic. The ZScript compiler is implemented [here](https://github.com/ZQuestClassic/ZQuestClassic/tree/main/src/parser). The parser uses flex/bison and the codegen (to ZASM, the bytecode that runs in the game engine) is C++. The language can be explored in the [web playground](https://web.zquestclassic.com/zscript/).
 
 This repo has two things:
 

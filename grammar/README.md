@@ -38,5 +38,5 @@ Example usages:
 - `ZSCRIPT=/path/to/zscript ./check_parser.sh` (but just set `ZSCRIPT` in your shell profile)
 - `./test.sh` runs `check_parser.sh` on everything in `tests/`
 - `./check_parser.sh myfile1.zs myfile2.zs`
-- `./check_parser.sh ~/code/zscript-database/**/*.zs`
+- `./check_parser.sh ~/code/zscript-database/**/*.zs ~/code/zscript-database/**/*.zh ~/code/zscript-database/**/*.z`
 - `rm -rf build && make && build/parser < tests/kitchen_sink.zs` quick way to validate when editing grammar

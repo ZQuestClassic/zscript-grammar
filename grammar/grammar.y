@@ -124,9 +124,9 @@ VarDeclExprStatement
 
 # *** Functions ***
 
-Function <- FunctionProto (SEMICOLON / Block / COLON KEYWORD_default ConstExpr SEMICOLON)
-FunctionProto <- Type IDENTIFIER (LARROW ScopedIdentifier RARROW)? LPAREN ParamDeclList RPAREN
-ScopedIdentifier <- (doc_comment? IDENTIFIER COMMA)* (doc_comment? IDENTIFIER)?
+Function <- (KEYWORD_static / KEYWORD_inline)* FunctionProto (SEMICOLON / Block / COLON KEYWORD_default ConstExpr SEMICOLON)
+FunctionProto <- Type IDENTIFIER (LARROW IdentifierList RARROW)? LPAREN ParamDeclList RPAREN
+IdentifierList <- (doc_comment? IDENTIFIER COMMA)* (doc_comment? IDENTIFIER)?
 ParamDeclList <- (ParamDecl COMMA)* ParamDecl? (DOT3 Type LBRACKET RBRACKET IDENTIFIER)?
 ParamDecl <- doc_comment? Type Brackets? VarDeclProto
 
@@ -203,18 +203,20 @@ AnnotationList <- Annotation (COMMA Annotation)*
 
 # Operators
 AssignOp
-    <- ASTERISKEQUAL
-     / SLASHEQUAL
-     / PERCENTEQUAL
-     / PLUSEQUAL
-     / TILDEEQUAL
-     / MINUSEQUAL
-     / LARROW2EQUAL
-     / RARROW2EQUAL
+    <- AMPERSAND2EQUAL
      / AMPERSANDEQUAL
+     / ASTERISKEQUAL
      / CARETEQUAL
-     / PIPEEQUAL
      / EQUAL
+     / LARROW2EQUAL
+     / MINUSEQUAL
+     / PERCENTEQUAL
+     / PIPE2EQUAL
+     / PIPEEQUAL
+     / PLUSEQUAL
+     / RARROW2EQUAL
+     / SLASHEQUAL
+     / TILDEEQUAL
 
 CompareOp
     <- EQUAL2
@@ -355,7 +357,8 @@ IDENTIFIER <- !keyword [A-Za-z_] [A-Za-z0-9_]* skip
 
 
 AMPERSAND            <- '&'      ![=&]     skip
-AMPERSAND2           <- '&&'               skip
+AMPERSAND2           <- '&&'     ![=]      skip
+AMPERSAND2EQUAL      <- '&&='              skip
 AMPERSANDEQUAL       <- '&='               skip
 ASTERISK             <- '*'      ![=]      skip
 ASTERISKEQUAL        <- '*='               skip
@@ -385,7 +388,8 @@ MINUSRARROW          <- '->'               skip
 PERCENT              <- '%'      ![=]      skip
 PERCENTEQUAL         <- '%='               skip
 PIPE                 <- '|'      ![|=]     skip
-PIPE2                <- '||'               skip
+PIPE2                <- '||'     ![=]      skip
+PIPE2EQUAL           <- '||='              skip
 PIPEEQUAL            <- '|='               skip
 PLUS                 <- '+'      ![+=]     skip
 PLUS2                <- '++'               skip
@@ -431,13 +435,13 @@ KEYWORD_option      <- 'option'      end_of_word
 KEYWORD_repeat      <- 'repeat'      end_of_word
 KEYWORD_return      <- 'return'      end_of_word
 KEYWORD_script      <- 'script'      end_of_word
+KEYWORD_static      <- 'static'      end_of_word
 KEYWORD_switch      <- 'switch'      end_of_word
 KEYWORD_try         <- 'try'         end_of_word
 KEYWORD_typedef     <- 'typedef'     end_of_word
 KEYWORD_unless      <- 'unless'      end_of_word
 KEYWORD_until       <- 'until'       end_of_word
 KEYWORD_usingnamespace <- 'using namespace' end_of_word
-KEYWORD_var         <- 'var'         end_of_word
 KEYWORD_while       <- 'while'       end_of_word
 
 keyword
@@ -466,11 +470,11 @@ keyword
      / KEYWORD_repeat
      / KEYWORD_return
      / KEYWORD_script
+     / KEYWORD_static
      / KEYWORD_switch
      / KEYWORD_try
      / KEYWORD_typedef
      / KEYWORD_unless
      / KEYWORD_until
      / KEYWORD_usingnamespace
-     / KEYWORD_var
      / KEYWORD_while
